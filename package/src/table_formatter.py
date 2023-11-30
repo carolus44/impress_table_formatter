@@ -136,29 +136,20 @@ def natural_sort(l):
     alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
     return sorted(l, key=alphanum_key)
 
-
-# Return a tuple (r, g, b) from an integer color
 def get_rgb_from_color(color):
-    red = color >> 16
-    color_updated = color - red * 65536
-    green = color_updated >> 8
-    blue = color_updated - green * 256
-    return (red, green, blue)
+    """
+    returns tuple of r, g, b from color
+    """
+    div, blue = divmod(color, 256)
+    return *divmod(div, 256), blue
 
-
-# Convert a integer color to a dictionary
 def color_to_dict(color):
-    components = get_rgb_from_color(color)
-    rgb_dict = dict()
-    rgb_dict["red"] = components[0]
-    rgb_dict["green"] = components[1]
-    rgb_dict["blue"] = components[2]
-    return rgb_dict
-
+    return dict(zip(("red","green","blue"), get_rgb_from_color(color)))
 
 # Return (r, g, b) values from RGB dict
 def rgb_from_dict(color_dict):
-    return color_dict["red"], color_dict["green"], color_dict["blue"]
+    r, g, b = color_dict.values()
+    return r, g, b
 
 
 # Get the format of a single border
