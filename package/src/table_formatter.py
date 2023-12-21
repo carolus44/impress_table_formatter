@@ -137,8 +137,7 @@ def natural_sort(l):
     return sorted(l, key=alphanum_key)
 
 def get_rgb_from_color(color):
-    red_green, blue = divmod(color, 256)
-    return *divmod(red_green, 256), blue
+    return tuple(color.to_bytes(length=3))
 
 def color_to_dict(color):
     return dict(zip(("red","green","blue"),get_rgb_from_color(color)))
